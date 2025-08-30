@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# \file    run.sh
+#
+# Copyright (C) 2025 Deniz Eren (deniz.eren@outlook.com)
+#
+# This is free and unencumbered software released into the public domain.
+#
+# Anyone is free to copy, modify, publish, use, compile, sell, or
+# distribute this software, either in source code form or as a compiled
+# binary, for any purpose, commercial or non-commercial, and by any
+# means.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+#
+# For more information, please refer to <https://unlicense.org/>
+#
+
+emrun --no_browser --port 8080 index.html

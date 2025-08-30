@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!--
+\file    index.html
+
+Copyright (C) 2025 Deniz Eren (deniz.eren@outlook.com)
+
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+
+For more information, please refer to <https://unlicense.org/>
+-->
+
+<html>
+<head>
+<meta charset="utf-8">
+<title>Full Window Draw</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  canvas {
+    display: block;
+    border: 2px solid black;
+  }
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+
+<script>
+var Module = {
+  onRuntimeInitialized: function() {
+    Module.init();
+    const canvas = document.getElementById("canvas");
+
+    function resizeCanvas() {
+        const margin = 20; // pixels around canvas
+        canvas.width = window.innerWidth - margin * 2;
+        canvas.height = window.innerHeight - margin * 2;
+    
+        canvas.style.width = (window.innerWidth - margin * 2) + "px";
+        canvas.style.height = (window.innerHeight - margin * 2) + "px";
+    
+        // Optional: position canvas in center
+        canvas.style.position = "absolute";
+        canvas.style.left = margin + "px";
+        canvas.style.top = margin + "px";
+    
+        Module.draw();
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    canvas.addEventListener("mousedown", (e) => {
+      const scale = window.devicePixelRatio || 1;
+      Module.mouseDown(e.offsetX * scale, e.offsetY * scale);
+    });
+
+    canvas.addEventListener("mousemove", (e) => {
+      const scale = window.devicePixelRatio || 1;
+      Module.mouseMove(e.offsetX * scale, e.offsetY * scale);
+    });
+
+    canvas.addEventListener("mouseup", () => {
+      Module.mouseUp();
+    });
+
+    canvas.addEventListener("mouseleave", () => {
+      Module.mouseUp();
+    });
+
+    canvas.addEventListener("wheel", e => {
+      e.preventDefault();
+      const scale = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      const x = (e.clientX - rect.left) * scale;
+      const y = (e.clientY - rect.top) * scale;
+      Module.wheel(e.deltaY, x, y);
+    }, { passive: false });
+  }
+};
+</script>
+<script src="draw.js"></script>
+</body>
+</html>
+
